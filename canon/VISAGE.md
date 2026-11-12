@@ -1,6 +1,6 @@
 # Yeux, visage et émotions : technologies en usage
 
-Relevé du 2026-10-14 dans les dépôts où Lemegeton apparaît (voir
+Relevé du 2026-10-14, mis à jour le 2026-11-12 (Korigan, Sigil), dans les dépôts où Lemegeton apparaît (voir
 [apparitions.json](apparitions.json)). Les dépôts privés sont signalés comme tels,
 sans détail d'infrastructure.
 
@@ -22,6 +22,7 @@ Aperçu côte à côte des moteurs publics, pilotés par les émotions du canon 
 | **mosaic.ts** | minitel-musee `src/videotex/` | Peintre de rangées G1 | TypeScript | — | Format de rangées `[ligne, col, couleur, octets G1]` compatible avec le Minitel réel |
 | **PtzEyes** | Korigan (privé) `app/admin/camera/` | Interface d'admin | React | Regard seulement (pan, tilt, zoom) | Yeux qui reflètent la caméra PTZ pilotée comme regard de Lemegéton (modes contrôle, suivi en direct, surveillance d'écran) |
 | Avatar Vidéotex | 3615-gateways, Korigan (privé) | Page 3615 AVATAR / LEMEGETON | Node.js | `mood` (neutral) | Image texte `lemegeton.txt`, état `avatar-state.json` |
+| Visage 3617 | Korigan (privé) `services/3615-gateways/server/lib/face-telnet.js` et `face/*.cjs` | Minitel réel par Telnet, 1 200 bauds, rendu différentiel | Node.js | Humeurs de Classic, Robot, Alien et Eyes, table de repli du canon | Copie de minitel-face sans Zyra ni ZyraEyes ; lit Sigil seulement quand un client est connecté ; touches 1 à 4 pour changer de visage |
 
 ## Pilotage : ce qui choisit l'émotion
 
@@ -33,8 +34,10 @@ Aperçu côte à côte des moteurs publics, pilotés par les émotions du canon 
 | Message direct | nitro-clicker (OBS Twitch) | WebSocket `lemegeton:emotion` | Identifiant du canon tel quel |
 | Mesh Sigil | sigil (privé) | `GET /api/visage`, toutes les 2 s sur le Minitel | Statut de l'agent actif → couleur et émotion |
 | Commande Sigil | sigil (privé) `minitel-face.py` | Action de la liste blanche | 10 émotions, envoyées en minuscules |
+| Régie Sigil | sigil (privé) `regie.py`, panneau de `/playground` | Force émotion, regard, écran hôte et phrase sur tous les écrans qui suivent le visage, de 5 à 600 s | 10 émotions du canon |
+| Scènes Sigil | sigil (privé) `scenes.py`, page `/scenes` | Jusqu'à 20 étapes (`commande`, `visage`, `diffuser`, `attente`), lancées à la main ou par un déclencheur du mesh | 10 émotions du canon (étape `visage`) |
 | API HTTP du visage | minitel-face (privé) | `GET /moods`, `POST /mood` | Humeurs de la bibliothèque active |
-| Korigan | Korigan (privé) | Canal vers l'API de minitel-face : humeur, regard, clignement, séquence, bibliothèque | Humeurs minitel-face |
+| Korigan, 3617 | Korigan (privé) `face-telnet.js` | Lit `GET /api/visage` de Sigil toutes les 2 s, seulement avec un client Telnet connecté | Émotion du canon → humeur par la table de repli ; regard ramené à trois positions ; clignement quand le compteur de Sigil change |
 | Touches Minitel | minitel-musee, firmwares | Chiffres du clavier | Chiffre n → n-ième émotion |
 | État de la radio | gwen-ha-star-static `data/lemegeton-state.json` | Fichier d'état publié | `eyes`/`mouth` (open, focused, closed) et `mood` en texte libre : hors canon |
 | Progression du clicker | nitro-clicker `lemegeton-progression.js` | Suivi du pointeur au survol | Regard seulement |
@@ -49,7 +52,7 @@ port, dit comme tel dans [apparitions.json](apparitions.json) (champ `lineage`) 
 | Famille | Vocabulaire | Référence | Copies identiques | Portages |
 | --- | --- | --- | --- | --- |
 | **Émotions** | les 10 de [emotions.json](emotions.json) | web-eye-animation, copie gelée de nitro-clicker (amont CyberAgentAILab) | Sigil, galerie de lemegeton-core | LemegetonEyes.h (Minitel-Sigil), puis lemegetonEyes.ts (minitel-musee) |
-| **Humeurs** | propre à chaque bibliothèque de minitel-face | minitel-face | copie vendue dans Korigan | Face_Autonomous (C++), Galerie.h (Minitel-Sigil), libEyes.ts, libZyraEyes.ts et SmoothEyes.ts (minitel-musee) |
+| **Humeurs** | propre à chaque bibliothèque de minitel-face | minitel-face | copie vendue dans Korigan (quatre visages, en `.cjs`, pour le 3617) | Face_Autonomous (C++), Galerie.h (Minitel-Sigil), libEyes.ts, libZyraEyes.ts et SmoothEyes.ts (minitel-musee) |
 
 **Règles.** Les identifiants d'émotion et leur ordre sont ceux du canon. Un
 portage peut étirer le temps ou tenir la pose pour la liaison Minitel, à
