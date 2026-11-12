@@ -71,10 +71,10 @@
     {
       "repo": "Korigan",
       "visibility": "private",
-      "role": "Runtime 3615 actif (avatar Lemegeton), oracle IA (service externe), voix de synthèse, transitions de la radio, caméra PTZ pilotée comme regard de Lemegéton (PtzEyes), pilotage du serveur minitel-face",
+      "role": "Runtime 3615 actif (avatar Lemegeton), oracle IA (service externe), voix de synthèse, transitions de la radio, caméra PTZ pilotée comme regard de Lemegéton (PtzEyes), Telnet 3617 qui montre le visage de Sigil (le service minitel-face en a été retiré le 2026-10-30)",
       "uses": ["état d'avatar", "voix", "personnalité", "regard (caméra PTZ)", "humeurs minitel-face"],
       "canon_status": "own",
-      "lineage": {"family": "moods", "role": "copy", "from": ["minitel-face"], "note": "copie vendue de minitel-face (services/minitel-face), corrigée le 2026-10-16"}
+      "lineage": {"family": "moods", "role": "copy", "from": ["minitel-face"], "note": "copie vendue de minitel-face en .cjs dans services/3615-gateways/server/lib/face/ (Classic, Robot, Alien, Eyes ; ni Zyra ni ZyraEyes), reprise le 2026-10-30 quand services/minitel-face a été retiré ; le clignement ponctuel (blinkOnce) n'existe que là en attendant minitel-face#11"}
     },
     {
       "repo": "minitel-face",
