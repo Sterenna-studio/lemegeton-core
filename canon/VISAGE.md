@@ -1,6 +1,6 @@
 # Yeux, visage et émotions : technologies en usage
 
-Relevé du 2026-10-14, mis à jour le 2026-11-12 (Korigan, Sigil), dans les dépôts où Lemegeton apparaît (voir
+Relevé du 2026-10-14, mis à jour le 2026-11-12 (Korigan, Sigil, visages Classic, Robot et Alien dans minitel-musee), dans les dépôts où Lemegeton apparaît (voir
 [apparitions.json](apparitions.json)). Les dépôts privés sont signalés comme tels,
 sans détail d'infrastructure.
 
@@ -18,6 +18,7 @@ Aperçu côte à côte des moteurs publics, pilotés par les émotions du canon 
 | **Bibliothèques de visages** (BaseFaceLib, Classic, Robot, Alien, Eyes, Zyra, ZyraEyes) | minitel-face (privé) `src/libs/` | Minitel réel via ESP32, rendu différentiel par régions | Node.js | Humeurs propres à chaque bibliothèque (default, happy, angry, tired, surprised, curious, love…) | FaceRenderer, séquences, mode autonome |
 | Visages embarqués | Minitel-Face-Autonomous (privé) | Minitel réel, ESP32 sans serveur | C++ Arduino | Humeurs Zyra (NEUTRE, CALME, JOIE, CURIEUX, FOCUS, COLERE, SURPRIS, FATIGUE, AMOUR) | Les six visages de minitel-face exécutés sur le dongle |
 | **libEyes.ts, libZyraEyes.ts, EyesController.ts** | minitel-musee `src/eyes/` | Minitel 3D | TypeScript | Humeurs minitel-face | Portage de LibEyes, LibZyraEyes et FaceRenderer |
+| **libFaces.ts** | minitel-musee `src/eyes/` | Minitel 3D | TypeScript | Humeurs de Classic, Robot et Alien (le reste replié par la table du canon) | Portage des trois visages de minitel-face, identique à l'original rangée par rangée ; couleurs fixes, taille ×1, pas encore de séquences propres (`scan`, `boot`…) |
 | **SmoothEyes.ts** | minitel-musee `src/eyes/` | Minitel 3D, rendu lisse | TypeScript | Humeurs minitel-face | Rendu « classique » façon overlay OBS |
 | **mosaic.ts** | minitel-musee `src/videotex/` | Peintre de rangées G1 | TypeScript | — | Format de rangées `[ligne, col, couleur, octets G1]` compatible avec le Minitel réel |
 | **PtzEyes** | Korigan (privé) `app/admin/camera/` | Interface d'admin | React | Regard seulement (pan, tilt, zoom) | Yeux qui reflètent la caméra PTZ pilotée comme regard de Lemegéton (modes contrôle, suivi en direct, surveillance d'écran) |
@@ -52,7 +53,7 @@ port, dit comme tel dans [apparitions.json](apparitions.json) (champ `lineage`) 
 | Famille | Vocabulaire | Référence | Copies identiques | Portages |
 | --- | --- | --- | --- | --- |
 | **Émotions** | les 10 de [emotions.json](emotions.json) | web-eye-animation, copie gelée de nitro-clicker (amont CyberAgentAILab) | Sigil, galerie de lemegeton-core | LemegetonEyes.h (Minitel-Sigil), puis lemegetonEyes.ts (minitel-musee) |
-| **Humeurs** | propre à chaque bibliothèque de minitel-face | minitel-face | copie vendue dans Korigan (quatre visages, en `.cjs`, pour le 3617) | Face_Autonomous (C++), Galerie.h (Minitel-Sigil), libEyes.ts, libZyraEyes.ts et SmoothEyes.ts (minitel-musee) |
+| **Humeurs** | propre à chaque bibliothèque de minitel-face | minitel-face | copie vendue dans Korigan (quatre visages, en `.cjs`, pour le 3617) | Face_Autonomous (C++), Galerie.h (Minitel-Sigil), libEyes.ts, libZyraEyes.ts, libFaces.ts et SmoothEyes.ts (minitel-musee) |
 
 **Règles.** Les identifiants d'émotion et leur ordre sont ceux du canon. Un
 portage peut étirer le temps ou tenir la pose pour la liaison Minitel, à
@@ -78,6 +79,7 @@ quelle bibliothèque il suit.
   Classic, Robot et Alien 5, 5 et 7. Testé sur l'original : Zyra rend `fear` et
   `disgust` comme `default`, LibEyes rend `calm`, `curious` et `focused` comme
   `default`.
+- **Les visages Classic, Robot et Alien sont portés dans minitel-musee** (`libFaces.ts`, styles `classic`, `robot`, `alien`, galerie : carte « Visages » à trois habillages). Ce sont les trois habillages d'une même tête, pas trois visages distincts : mêmes régions, même contrat, seules changent les couleurs et les tables de formes. Vérifié le 2026-11-12 rangée par rangée contre minitel-face (humeurs natives, trois regards, ouvert et fermé), avec des tests de symétrie et de lignes entières pour toutes les humeurs.
 - **Le portage Zyra de minitel-musee a les neuf humeurs de LibZyra**, identiques à
   l'original rangée par rangée (vérifié le 2026-10-23 sur neuf humeurs, trois
   regards, ouvert, fermé et mi-clos) ; `fear` et `disgust`, propres à LibEyes, y sont

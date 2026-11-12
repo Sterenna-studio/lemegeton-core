@@ -9,12 +9,17 @@ import { defaultEffects, renderTerminal } from "@musee/videotex/renderer";
 import canon from "../../canon/emotions.json";
 
 // Humeurs que les moteurs de minitel-musee savent jouer, par clé de moteur : celles de
-// LibEyes, et celles de Zyra (portage complet depuis minitel-musee#37, avec peur et
-// dégoût rapprochés des formes surpris et fatigué).
+// LibEyes, celles de Zyra (portage complet depuis minitel-musee#37, avec peur et
+// dégoût rapprochés des formes surpris et fatigué) et celles des visages de
+// minitel-face (Classic et Robot : cinq humeurs ; l'Alien y ajoute neutre et curieux).
 const LIBEYES_MOODS = ["default", "happy", "angry", "surprised", "tired", "fear", "disgust", "love"];
+const FACE_MOODS = ["default", "happy", "angry", "surprised", "tired"];
 const PLAYABLE = {
   eyes: new Set(LIBEYES_MOODS),
   zyra: new Set([...LIBEYES_MOODS, "calm", "curious", "focused"]),
+  classic: new Set(FACE_MOODS),
+  robot: new Set(FACE_MOODS),
+  alien: new Set([...FACE_MOODS, "neutral", "curious"]),
 };
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const effects = { ...defaultEffects };
@@ -72,6 +77,16 @@ function mountMosaic(host, style) {
   if (!reducedMotion) controller.start();
   follow(host, controller);
   const native = style.startsWith("lemegeton");
+  // Un visage à habillages : les boutons de la carte changent de style, l'humeur reste.
+  let current = style;
+  const skins = host.closest(".eye-card")?.querySelectorAll("[data-skin]") ?? [];
+  skins.forEach((button) =>
+    button.addEventListener("click", () => {
+      current = button.dataset.skin;
+      controller.setStyle(current);
+      skins.forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
+    }),
+  );
   return {
     palette: (id) => controller.setPalette(id),
     emotion(emotion) {
@@ -79,7 +94,7 @@ function mountMosaic(host, style) {
         controller.key(String(EMOTIONS.indexOf(emotion.id)));
         return `${emotion.id} (natif)`;
       }
-      return playMood(controller, style === "zyra" ? "zyra" : "eyes", emotion);
+      return playMood(controller, current === "libeyes" ? "eyes" : current, emotion);
     },
     neutral: () => (native ? controller.key("Retour") : controller.setMood("default")),
   };
