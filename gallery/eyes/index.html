@@ -8,8 +8,8 @@
   <link rel="canonical" href="https://sterenna.fr/lemegeton/eyes/">
   <link rel="icon" type="image/webp" href="../assets/icon.webp?v=9be2aa3">
   <title>Lemegéton — yeux | Sterenna</title>
-  <link rel="stylesheet" href="./eyes.css?v=ebe877c91c">
-  <script src="./eyes.js?v=103cf8b330" defer></script>
+  <link rel="stylesheet" href="./eyes.css?v=c5f1d146e1">
+  <script src="./eyes.js?v=91f9cecf4c" defer></script>
 </head>
 <body>
   <header class="topbar">
@@ -71,6 +71,7 @@
           <h2>Zyra · capsules</h2>
           <p>LibZyraEyes de minitel-face, porté dans minitel-musee.</p>
           <p class="where">Minitel réel et Minitel 3D · humeurs</p>
+          <div class="seq-row" role="group" aria-label="Séquences propres" hidden></div>
           <span class="eye-caption">humeurs via le canon</span>
         </figcaption>
       </figure>
@@ -86,14 +87,16 @@
       <figure class="eye-card">
         <div class="eye-screen" data-engine="mosaic" data-style="classic"></div>
         <figcaption>
-          <h2>Visages · Classic, Robot, Alien</h2>
-          <p>Une même tête en mosaïque, trois habillages de minitel-face, portés dans minitel-musee.</p>
-          <p class="where">Minitel réel (3617) et Minitel 3D · humeurs</p>
+          <h2>Visages · Classic, Robot, Alien, Zyra</h2>
+          <p>Les visages complets de minitel-face, tels que la galerie du firmware Minitel_Sigil les rejoue, portés dans minitel-musee.</p>
+          <p class="where">Minitel réel (3617, Minitel_Sigil) et Minitel 3D · humeurs et séquences</p>
           <div class="skin-row" role="group" aria-label="Habillage du visage">
             <button class="skin" type="button" data-skin="classic" aria-pressed="true">Classic</button>
             <button class="skin" type="button" data-skin="robot" aria-pressed="false">Robot</button>
             <button class="skin" type="button" data-skin="alien" aria-pressed="false">Alien</button>
+            <button class="skin" type="button" data-skin="zyra-visage" aria-pressed="false">Zyra</button>
           </div>
+          <div class="seq-row" role="group" aria-label="Séquences propres" hidden></div>
           <span class="eye-caption">humeurs via le canon</span>
         </figcaption>
       </figure>
@@ -111,8 +114,6 @@
     <section class="missing" aria-labelledby="missing-title">
       <h2 id="missing-title">Pas encore ici</h2>
       <ul>
-        <li><b>Séquences des visages</b> : scan, boot, hypnotize… jouées par minitel-face sur Classic, Robot et Alien, pas encore portées pour le Web.</li>
-        <li><b>Galerie du Minitel</b> : les six visages de minitel-face rejoués par le firmware Minitel_Sigil.</li>
         <li><b>Regard de la caméra</b> : les yeux qui suivent la caméra PTZ pilotée par Lemegéton.</li>
       </ul>
       <p>Le relevé complet des moteurs est tenu dans <a href="https://github.com/Sterenna-studio/lemegeton-core/blob/main/canon/VISAGE.md">le canon du personnage</a>.</p>
