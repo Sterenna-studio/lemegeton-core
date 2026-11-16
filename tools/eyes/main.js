@@ -5,13 +5,15 @@
 import { EyesController, EYE_PALETTES } from "@musee/eyes/EyesController";
 import { SmoothEyes } from "@musee/eyes/SmoothEyes";
 import { EMOTIONS } from "@musee/eyes/lemegetonEyes";
+import { OWN_SEQUENCE_LABELS } from "@musee/eyes/libFaces";
 import { defaultEffects, renderTerminal } from "@musee/videotex/renderer";
 import canon from "../../canon/emotions.json";
 
 // Humeurs que les moteurs de minitel-musee savent jouer, par clé de moteur : celles de
 // LibEyes, celles de Zyra (portage complet depuis minitel-musee#37, avec peur et
 // dégoût rapprochés des formes surpris et fatigué) et celles des visages de
-// minitel-face (Classic et Robot : cinq humeurs ; l'Alien y ajoute neutre et curieux).
+// minitel-face (Classic et Robot : cinq humeurs ; l'Alien y ajoute neutre et curieux ;
+// le visage Zyra complet reprend celles des capsules Zyra).
 const LIBEYES_MOODS = ["default", "happy", "angry", "surprised", "tired", "fear", "disgust", "love"];
 const FACE_MOODS = ["default", "happy", "angry", "surprised", "tired"];
 const PLAYABLE = {
@@ -53,6 +55,35 @@ function onPointer(host, move) {
 }
 const follow = (host, controller) => onPointer(host, (x, y) => controller.follow(x, y));
 
+/** Clé de la table de repli du canon pour un style (le visage Zyra joue comme les capsules). */
+const engineOf = (style) => (style === "libeyes" ? "eyes" : style === "zyra-visage" ? "zyra" : style);
+
+/**
+ * Boutons des séquences propres au style affiché (balayage, démarrage, hypnose…),
+ * reconstruits à chaque changement d'habillage ; la rangée se cache quand le
+ * style n'en a pas.
+ */
+function sequenceButtons(row, controller, caption) {
+  if (!row) return () => {};
+  return () => {
+    row.replaceChildren();
+    const names = controller.ownSequences();
+    row.hidden = names.length === 0;
+    for (const name of names) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "skin";
+      button.textContent = OWN_SEQUENCE_LABELS[name] ?? name;
+      button.title = `${name} (minitel-face)`;
+      button.addEventListener("click", () => {
+        void controller.play(name);
+        if (caption) caption.textContent = `séquence ${name}`;
+      });
+      row.append(button);
+    }
+  };
+}
+
 /** Mosaïque Vidéotex : un EyesController dessiné par le rendu du Minitel 3D. */
 function mountMosaic(host, style) {
   const canvas = document.createElement("canvas");
@@ -79,12 +110,16 @@ function mountMosaic(host, style) {
   const native = style.startsWith("lemegeton");
   // Un visage à habillages : les boutons de la carte changent de style, l'humeur reste.
   let current = style;
-  const skins = host.closest(".eye-card")?.querySelectorAll("[data-skin]") ?? [];
+  const card = host.closest(".eye-card");
+  const showSequences = sequenceButtons(card?.querySelector(".seq-row"), controller, card?.querySelector(".eye-caption"));
+  showSequences();
+  const skins = card?.querySelectorAll("[data-skin]") ?? [];
   skins.forEach((button) =>
     button.addEventListener("click", () => {
       current = button.dataset.skin;
       controller.setStyle(current);
       skins.forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
+      showSequences();
     }),
   );
   return {
@@ -94,7 +129,7 @@ function mountMosaic(host, style) {
         controller.key(String(EMOTIONS.indexOf(emotion.id)));
         return `${emotion.id} (natif)`;
       }
-      return playMood(controller, current === "libeyes" ? "eyes" : current, emotion);
+      return playMood(controller, engineOf(current), emotion);
     },
     neutral: () => (native ? controller.key("Retour") : controller.setMood("default")),
   };

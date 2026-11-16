@@ -48,6 +48,9 @@ h1 em { color: var(--acid); font-weight: 400; }
 .skin { min-height: 32px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--muted); font-size: 12px; cursor: pointer; transition: border-color .2s, color .2s; }
 .skin:hover { border-color: var(--acid); color: var(--acid); }
 .skin[aria-pressed="true"] { border-color: var(--acid); color: var(--acid); background: rgba(232, 245, 90, .08); }
+.seq-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 10px; }
+.seq-row::before { content: "Séquences"; margin-right: 4px; color: var(--muted); font-size: 11px; }
+.seq-row[hidden] { display: none; }
 .toggle::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--acid); box-shadow: 0 0 8px var(--acid); }
 .toggle[aria-pressed="false"] { color: var(--muted); }
 .toggle[aria-pressed="false"]::before { background: transparent; box-shadow: inset 0 0 0 1px var(--muted); }
