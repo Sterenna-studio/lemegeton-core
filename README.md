@@ -26,8 +26,8 @@ du visage, identité et étapes vers le rassemblement des dépôts. Vérificatio
 | --- | --- |
 | [canon](canon/README.md) | Ce qui fait foi pour le personnage, partagé par les autres projets |
 | [01_REFERENCES](01_REFERENCES/README.md) | Concept art, fiches techniques et storyboard 2D |
-| `02_SOURCES_3D/` | Modèles GLB sources conservés tels que reçus ; `rig_lemegeton.py` en tire un brouillon de rig (`LEMEGETON_RIGGED_DRAFT.glb`, local, à corriger dans Blender) |
-| `03_RIGS/` | Packages V1/V2/V3 autonomes, avec scripts, viewer et dépendances |
+| `02_SOURCES_3D/` | Modèles GLB sources conservés tels que reçus |
+| `03_RIGS/` | Packages V1/V2/V3 autonomes, avec scripts, viewer et dépendances ; `LEMEGETON_RIGGED_DRAFT.glb` (local) est le brouillon de rig produit par [`tools/rig_lemegeton.py`](tools/rig_lemegeton.py) depuis `LEMEGETON_MASTER_SOURCE.glb`, à corriger dans Blender |
 | `04_BLENDER/` | Scènes de travail/audit et scripts Blender; conserver aussi les `.blend1` |
 | `05_EXPORTS/` | Rendus, captures, animations et rapports d’export |
 | [06_MODEL](06_MODEL/README.md) | Générations Meshy et autres modèles expérimentaux |

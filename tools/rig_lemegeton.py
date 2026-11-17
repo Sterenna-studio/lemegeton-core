@@ -1,13 +1,16 @@
 """Create an editable first-pass mechanical glTF skin for Lemegeton.
-Usage: python rig_lemegeton.py [source.glb] [output.glb]
+Usage: python tools/rig_lemegeton.py [source.glb] [output.glb]
+Par défaut : lit 02_SOURCES_3D/LEMEGETON_MASTER_SOURCE.glb et écrit
+03_RIGS/LEMEGETON_RIGGED_DRAFT.glb (la sortie est écrasée à chaque lancement).
 No Blender required. Review/correct vertex assignments in Blender before animation.
 """
 import json,struct,sys
 from pathlib import Path
 import numpy as np
 
-src=Path(sys.argv[1] if len(sys.argv)>1 else '/mnt/data/LEMEGETON_MASTER_SOURCE.glb')
-dst=Path(sys.argv[2] if len(sys.argv)>2 else '/mnt/data/LEMEGETON_RIGGED_DRAFT.glb')
+ROOT=Path(__file__).resolve().parent.parent
+src=Path(sys.argv[1] if len(sys.argv)>1 else ROOT/'02_SOURCES_3D'/'LEMEGETON_MASTER_SOURCE.glb')
+dst=Path(sys.argv[2] if len(sys.argv)>2 else ROOT/'03_RIGS'/'LEMEGETON_RIGGED_DRAFT.glb')
 with src.open('rb') as f:
  magic,ver,total=struct.unpack('<4sII',f.read(12))
  assert magic==b'glTF' and ver==2
