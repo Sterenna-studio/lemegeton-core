@@ -118,7 +118,7 @@ Deux choix à retenir : le **dégoût sur Zyra est « fatigué »**, parce que
 
 **Écarts avec les supports actuels** (non corrigés) :
 
-- Minitel-Sigil joue le dégoût en « concentré » (`GAL_MOOD_OF_EMOTION`) : c'est le
+- Minitel-Sigil joue le dégoût en « concentré » (`GAL_MOOD_OF_EMOTION`) — corrigé en « fatigué » sur la branche `fix/degout-fatigue` (d5f0915), à flasher et regarder ; c'est le
   seul écart restant avec la table.
 
 La page d'aperçu des yeux suit la table depuis le 2026-10-23 : chaque carte lit son
