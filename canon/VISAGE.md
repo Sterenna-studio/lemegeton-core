@@ -116,10 +116,10 @@ Deux choix à retenir : le **dégoût sur Zyra est « fatigué »**, parce que
 « concentré » y donne exactement les yeux de la colère ; la **confusion est
 « surpris »** là où l'humeur « curieux » n'existe pas.
 
-**Écarts avec les supports actuels** (non corrigés) :
-
-- Minitel-Sigil joue le dégoût en « concentré » (`GAL_MOOD_OF_EMOTION`) — corrigé en « fatigué » sur la branche `fix/degout-fatigue` (d5f0915), à flasher et regarder ; c'est le
-  seul écart restant avec la table.
+**Écarts avec les supports actuels** : aucun depuis le 2026-11-18. Le dernier,
+Minitel-Sigil qui jouait le dégoût en « concentré » (`GAL_MOOD_OF_EMOTION`), le joue
+désormais en « fatigué » comme la table (fusionné dans `main`, efe6383, flashé et
+regardé sur le Minitel).
 
 La page d'aperçu des yeux suit la table depuis le 2026-10-23 : chaque carte lit son
 moteur dans `fallbacks` et affiche l'humeur jouée, avec « repli » quand il n'y a pas
