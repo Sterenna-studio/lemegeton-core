@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-10-19",
+  "updated": "2026-11-27",
   "audit": "08_AUDIT/AUDIT_ECOSYSTEME_2026-10-14.md",
   "description": "Registre des projets où Lemegeton apparaît. « uses » liste ce que chaque projet reprend du canon ; « canon_status » dit s'il s'y aligne déjà. Les dépôts privés n'ont ni adresse interne, ni port, ni chemin local : ce dépôt est public.",
   "canon_status_values": {
@@ -99,6 +99,14 @@
       "uses": ["yeux Vidéotex", "émotions", "humeurs Zyra"],
       "canon_status": "aligned",
       "lineage": {"family": "emotions", "role": "port", "from": ["Sterenna-studio/nitro-clicker", "Minitel-Face-Autonomous"], "note": "LemegetonEyes.h porte web-eye-animation ; Galerie.h porte les six visages de Face_Autonomous"}
+    },
+    {
+      "repo": "Minitel-Sigil-Lite",
+      "visibility": "private",
+      "role": "Firmware ESP32 court du Minitel (base iodeo) : le visage Lemegeton de Minitel-Sigil sans galerie ni son, le Wi-Fi, l'API de Sigil et la mise à jour par le Wi-Fi ; sans PSRAM, pour garder la liaison du Minitel",
+      "uses": ["yeux Vidéotex", "émotions"],
+      "canon_status": "aligned",
+      "lineage": {"family": "emotions", "role": "copy", "from": ["Minitel-Sigil"], "note": "Eyes.h est une copie allégée de LemegetonEyes.h (sans la galerie ni le son) ; mêmes dix émotions que Minitel-Sigil"}
     },
     {
       "repo": "sigil",
